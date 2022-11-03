@@ -11,8 +11,10 @@ from numba import jit,njit, prange, vectorize, float64
 ##################################################################################
 def RELU(x):
     return np.maximum(0, x)
+
 def sigmoid(x):
     return 1.0 / (1.0 + np.exp(-x))
+
 def Sigmoid_tab(n_bit_in, n_bit_weights, N_input, n_bit_out):
     minW = -1 #np.power(2, n_bit_weights - 1)
     maxW =  2 #np.power(2, n_bit_weights - 1)
@@ -169,17 +171,19 @@ def FCN(Input, Weights, Bias, Act_Tab_Ker, Min):
 def feedforward(img,img_size,k_C1,b_C1,k_C2,b_C2,Act_Tab_Ker1,Min1,Act_Tab_Ker2,Min2):#,Act_Tab_Ker3,Min3):
     #--------FEEDFORWARD----------------------------------------------#
     img = img.reshape(img_size,img_size)
+    
     # CONVOLUTIONAL LAYER 1
     C1 = Convolution_2D(img, img_size, k_C1, b_C1, Act_Tab_Ker1, Min1)
-    #print(np.max(C1))
+    
     # POOLING (2,2) --> img = (12,12)
     P1 = POOLING(C1)
     p1 = P1.flatten() # (864,)
+    
     # CONVOLUTIONAL LAYER 2 
     C2, S2 = Convolution_3D(P1,k_C2,b_C2, Act_Tab_Ker2, Min2)
     s2 = S2.flatten() # (768,)
     c2 = C2.flatten() # (768,)
-    #print(np.max(C2))
+    
     # POOLING (2,2) --> img = (4,4)
     P2 = POOLING(C2)
     #print(np.max(P2))
