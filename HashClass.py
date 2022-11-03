@@ -47,33 +47,6 @@ class HashTable:
             if element[0] == key:
                 return element[1][0],element[1][1],element[2]
 
-
-
-    ''' HASH CLASS FOR SAVING CONFIG AT HASH(LOSS)
-    def __setitem__(self,key,val):
-        h = self.get_hash(key)
-        found = False
-        for idx, element in enumerate(self.arr[h]):
-            comparison = element[1][0]==val[0]
-            if len(element[1])==2 and \
-                            comparison.all() and element[0]==key:
-                repetitions = element[2] + 1
-                self.arr[h][idx] = (key,val,repetitions)
-                found = True
-                
-                break
-        if not found:
-            repetitions = 1
-            self.arr[h].append((key,val,repetitions))
-        
-    def __getitem__(self, key):
-        h = self.get_hash(key[0])
-        val = key[1]
-        for idx, element in enumerate(self.arr[h]):
-            comparison = element[1][0]==val
-            if element[0] == key[0] and comparison.all():
-                return element[1][0],element[1][1],element[2]
-    '''
     def __delitem__(self,key):
         h = self.get_hash(key,self.nbit)
         self.arr[h] = None
